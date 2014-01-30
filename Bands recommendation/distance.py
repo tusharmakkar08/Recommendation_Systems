@@ -30,6 +30,19 @@ def manhattan(rating1,rating2):
     if key in rating2:
       ans+=abs(rating1[key]-rating2[key])
   return ans
+  
+def minkowski(rating1,rating2,r):
+	ans=0;commonRatings=False
+	for key in rating1:
+		if key in rating2:
+			ans+=pow(abs(rating1[key]-rating2[key]),r)
+			commonRatings=True
+	if commonRatings:
+		return pow(ans,1.0/r)
+	else:
+		return 0
+		
+	
 
 #print manhattan(users['Hailey'], users['Veronica'])
 #print manhattan(users['Hailey'], users['Jordyn'])
@@ -38,7 +51,7 @@ def computeNearestNeighbor(username,users):
   distances=[]
   for user in users:
     if user!=username:
-      d=manhattan(users[user],users[username])
+      d=minkowski(users[user],users[username],1) #manhattan(users[user],users[username]) 
       distances.append((d,user))
   distances.sort()
   return distances
