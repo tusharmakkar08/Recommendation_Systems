@@ -1,3 +1,5 @@
+from math import sqrt
+
 users = {"Angelica": {"Blues Traveler": 3.5, "Broken Bells": 2.0,
 "Norah Jones": 4.5, "Phoenix": 5.0,"Slightly Stoopid": 1.5,"The Strokes": 2.5, "Vampire Weekend": 2.0},
 "Bill": {"Blues Traveler": 2.0, "Broken Bells": 3.5,"Deadmau5": 4.0, "Phoenix": 2.0,
@@ -69,3 +71,25 @@ def recommend(username,users):
 	return sorted(reco,key= lambda x:x[1],reverse=True)
 
 #print recommend('Hailey', users)
+
+def pearson(user1,user2):
+	fi=0;se=0;th=0;fo=0;fif=0;co=0
+	for band in user1:
+		if band in user2:
+			#print band,user1[band],user2[band]
+			co+=1
+			fi+=(user1[band]*user2[band])
+			se+=user1[band]
+			th+=user2[band]
+			fo+=user1[band]**2
+			fif+=user2[band]**2
+	deno=sqrt(fo-(se**2)/co)*sqrt(fif-(th**2)/co)
+	if deno!=0:
+		return (fi-(se*th*1.0)/(co*1.0))/deno
+	else:
+		return 0
+
+
+print pearson(users['Angelica'], users['Bill'])
+print pearson(users['Angelica'], users['Hailey'])
+print pearson(users['Angelica'], users['Jordyn'])
