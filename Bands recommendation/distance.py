@@ -44,3 +44,15 @@ def computeNearestNeighbor(username,users):
   return distances
 
 #print computeNearestNeighbor("Hailey", users)
+
+def recommend(username,users):
+	nearest=computeNearestNeighbor(username,users)[0][1]
+	reco=[]
+	nratings=users[nearest]
+	uratings=users[username]
+	for band in nratings:
+		if band not in uratings:
+			reco.append((band,nratings[band]))
+	return sorted(reco,key= lambda x:x[1],reverse=True)
+
+#print recommend('Hailey', users)
