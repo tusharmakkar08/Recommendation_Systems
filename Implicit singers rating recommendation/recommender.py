@@ -23,10 +23,14 @@ class recommender:
 					if item!=item2:
 						self.frequencies[item].setdefault(item2,0)
 						self.deviations[item].setdefault(item2,0.0)
-						self.frquencies[item][item2]+=1
+						self.frequencies[item][item2]+=1
 						self.deviations[item][item2]+=(rating-rating2)
-						
+		#print self.frequencies.items()
+		#print self.deviations.items()
 		for (item,ratings) in self.deviations.items():
 			for item2 in ratings:
 				ratings[item2]/=self.frequencies[item][item2]
-				
+
+#r = recommender(users2)
+#r.computeDeviations()
+#print r.deviations
